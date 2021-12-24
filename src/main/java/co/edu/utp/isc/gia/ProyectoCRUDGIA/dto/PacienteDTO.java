@@ -10,12 +10,13 @@ import java.util.Date;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class PersonalMedDTO implements Serializable {
+public class PacienteDTO implements Serializable {
     private Long id;
     private String cedula;
     private String nombre;
     private String apellido;
     private String telefono;
-    private Date fechaNacimiento;
-    private Long id_especializacion;
+    private String estado;
+    private Date fechaNaciemiento;
+    private String sexo;
 }
