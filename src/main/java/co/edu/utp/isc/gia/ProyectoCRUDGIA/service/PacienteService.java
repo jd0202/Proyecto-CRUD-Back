@@ -4,7 +4,9 @@ import co.edu.utp.isc.gia.ProyectoCRUDGIA.dto.PacienteDTO;
 import co.edu.utp.isc.gia.ProyectoCRUDGIA.entities.PacienteEntity;
 
 public interface PacienteService {
-    PacienteDTO crearPacienteMed(PacienteDTO pacienteDTO);
+    PacienteDTO crearPaciente(PacienteDTO pacienteDTO);
 
-    PacienteDTO obtenerPorCedula(String cedula);
+    PacienteDTO obtenerPacientePorCedula(String cedula);
+
+    PacienteEntity obtenerPacientePorId(Long id);
 }

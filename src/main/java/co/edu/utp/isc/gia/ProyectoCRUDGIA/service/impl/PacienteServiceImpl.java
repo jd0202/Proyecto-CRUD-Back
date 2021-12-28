@@ -11,6 +11,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class PacienteServiceImpl implements PacienteService {
     @Autowired
@@ -23,7 +25,7 @@ public class PacienteServiceImpl implements PacienteService {
     private ModelMapper modelMapper = new ModelMapper();
 
     @Override
-    public PacienteDTO crearPacienteMed(PacienteDTO pacienteDTO) {
+    public PacienteDTO crearPaciente(PacienteDTO pacienteDTO) {
             if(!pacienteDTO.equals(null) && pacienteDTO != null){
                 PersonalMedEntity personalMedEntity =
                         personalMedService.obtenerPersonalMedPorId(pacienteDTO.getPersonalMedId());
@@ -36,10 +38,20 @@ public class PacienteServiceImpl implements PacienteService {
         }
 
     @Override
-    public PacienteDTO obtenerPorCedula(String cedula) {
+    public PacienteDTO obtenerPacientePorCedula(String cedula) {
         if (this.pacienteRepository.existsByCedula(cedula)){
             return modelMapper.map(this.pacienteRepository.findByCedula(cedula).get(),PacienteDTO.class);
         }else {
+            return null;
+        }
+    }
+
+    @Override
+    public PacienteEntity obtenerPacientePorId(Long id) {
+        Optional<PacienteEntity> pacienteEntityOptional = pacienteRepository.findById(id);
+        if (pacienteEntityOptional.isPresent()){
+            return pacienteEntityOptional.get();
+        }else{
             return null;
         }
     }

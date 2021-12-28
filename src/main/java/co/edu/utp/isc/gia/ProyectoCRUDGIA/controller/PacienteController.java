@@ -16,8 +16,8 @@ public class PacienteController {
     private PacienteService pacienteService;
 
     @PostMapping("crearPaciente")
-    public PacienteDTO crearPacienteMed(@RequestBody PacienteDTO pacienteDTO){
-        return pacienteService.crearPacienteMed(pacienteDTO);
+    public PacienteDTO crearPaciente(@RequestBody PacienteDTO pacienteDTO){
+        return pacienteService.crearPaciente(pacienteDTO);
     }
 
     @GetMapping("obtenerPorCedula")

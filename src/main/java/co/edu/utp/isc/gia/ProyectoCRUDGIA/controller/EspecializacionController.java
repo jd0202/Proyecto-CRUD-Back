@@ -17,6 +17,7 @@ public class EspecializacionController {
         return especializacionService.crearEspecializacion(especialziacionDTO);
     }
 
+    //como borrar cuando existe como llave foranea
     @DeleteMapping("borrarEspecializacion")
     public String borrarEspecializacion(@RequestParam Long id){
         return especializacionService.borrarEspecializacion(id);
