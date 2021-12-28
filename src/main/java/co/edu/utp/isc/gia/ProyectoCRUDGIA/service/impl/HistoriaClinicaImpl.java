@@ -1,6 +1,7 @@
 package co.edu.utp.isc.gia.ProyectoCRUDGIA.service.impl;
 
 import co.edu.utp.isc.gia.ProyectoCRUDGIA.dto.HistoriaClinicaDTO;
+import co.edu.utp.isc.gia.ProyectoCRUDGIA.dto.PacienteDTO;
 import co.edu.utp.isc.gia.ProyectoCRUDGIA.dto.PersonalMedDTO;
 import co.edu.utp.isc.gia.ProyectoCRUDGIA.entities.EspecializacionEntity;
 import co.edu.utp.isc.gia.ProyectoCRUDGIA.entities.HistoriaClinicaEntity;
@@ -14,6 +15,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -34,8 +36,11 @@ public class HistoriaClinicaImpl implements HistoriaClinicaService {
     @Override
     public HistoriaClinicaDTO crearHistoriaClinica(HistoriaClinicaDTO historiaClinicaDTO) {
         if(!historiaClinicaDTO.equals(null) && historiaClinicaDTO != null) {
-            PacienteEntity pacienteEntity = pacienteService.obtenerPacientePorId(historiaClinicaDTO.getPaciente_Id());
-            PersonalMedEntity personalMedEntity = personalMedService.obtenerPersonalMedPorId(historiaClinicaDTO.getPersonalMed_Id());
+            PacienteEntity pacienteEntity = modelMapper.map(
+                    pacienteService.obtenerPacientePorId(historiaClinicaDTO.getPaciente_Id()),PacienteEntity.class);
+            PersonalMedEntity personalMedEntity =modelMapper.map(
+                    personalMedService.obtenerPersonalMedPorId(historiaClinicaDTO.getPersonalMed_Id()),
+                    PersonalMedEntity.class);
             HistoriaClinicaEntity historiaClinicaEntity = modelMapper.map(historiaClinicaDTO, HistoriaClinicaEntity.class);
             historiaClinicaEntity.setPacienteEntity(pacienteEntity);
             historiaClinicaEntity.setPersonalMedEntity(personalMedEntity);
@@ -45,9 +50,19 @@ public class HistoriaClinicaImpl implements HistoriaClinicaService {
         }
     }
 
-
     @Override
     public List<HistoriaClinicaDTO> obtenerHistoriaClinicaPorCedula(String cedula) {
-        return null;
+        PacienteDTO pacienteDTO = pacienteService.obtenerPacientePorCedula(cedula);
+        List<HistoriaClinicaEntity> historiasClinicasEntities =
+                historiaClinicaRepository.findByPaciente_Id(pacienteDTO.getId());
+        if (!historiasClinicasEntities.isEmpty()){
+            List<HistoriaClinicaDTO> historiasClinicasDTO  = new ArrayList<>();
+            historiasClinicasEntities.forEach(historiaClinicaEntity -> {
+                historiasClinicasDTO.add(modelMapper.map(historiaClinicaEntity, HistoriaClinicaDTO.class));
+            });
+            return historiasClinicasDTO;
+        }else {
+            return null;
+        }
     }
 }

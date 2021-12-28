@@ -6,7 +6,7 @@ import co.edu.utp.isc.gia.ProyectoCRUDGIA.entities.PersonalMedEntity;
 public interface PersonalMedService {
     PersonalMedDTO crearPersonalMed(PersonalMedDTO personalMedDTO);
 
-    PersonalMedEntity obtenerPersonalMedPorId(Long personalMedId);
+    PersonalMedDTO obtenerPersonalMedPorId(Long personalMedId);
 
     PersonalMedDTO obtenerPersonalMedPorCedula(String cedula);
 }

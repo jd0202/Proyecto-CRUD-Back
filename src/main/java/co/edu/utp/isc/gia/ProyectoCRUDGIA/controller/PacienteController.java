@@ -1,7 +1,6 @@
 package co.edu.utp.isc.gia.ProyectoCRUDGIA.controller;
 
 import co.edu.utp.isc.gia.ProyectoCRUDGIA.dto.PacienteDTO;
-import co.edu.utp.isc.gia.ProyectoCRUDGIA.entities.PacienteEntity;
 import co.edu.utp.isc.gia.ProyectoCRUDGIA.service.PacienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -20,8 +19,23 @@ public class PacienteController {
         return pacienteService.crearPaciente(pacienteDTO);
     }
 
-    @GetMapping("obtenerPorCedula")
+    @GetMapping("obtenerPacientePorCedula")
     public PacienteDTO obtenerPorCedula(@RequestParam String cedula){
-        return pacienteService.obtenerPorCedula(cedula);
+        return pacienteService.obtenerPacientePorCedula(cedula);
+    }
+
+    @GetMapping("obtenerPacientePorId")
+    public PacienteDTO obtenerPacientePorId(@RequestParam Long id){
+        return pacienteService.obtenerPacientePorId(id);
+    }
+
+    @PutMapping("editarPaciente")
+    public PacienteDTO editarPaciente(@RequestBody PacienteDTO pacienteDTO){
+        return pacienteService.editarPaciente(pacienteDTO);
+    }
+
+    @DeleteMapping("borrarPaciente")
+    public  String borrarPaciente(@RequestParam Long id){
+        return pacienteService.borrarPaciente(id);
     }
 }

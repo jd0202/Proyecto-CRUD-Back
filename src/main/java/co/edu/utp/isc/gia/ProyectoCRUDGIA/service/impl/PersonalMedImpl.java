@@ -41,10 +41,10 @@ public class PersonalMedImpl implements PersonalMedService {
     }
 
     @Override
-    public PersonalMedEntity obtenerPersonalMedPorId(Long personalMedId) {
+    public PersonalMedDTO obtenerPersonalMedPorId(Long personalMedId) {
         Optional<PersonalMedEntity> personalMedEntityOptional = personalMedRepository.findById(personalMedId);
         if (personalMedEntityOptional.isPresent()){
-            return personalMedEntityOptional.get();
+            return modelMapper.map(personalMedEntityOptional.get(),PersonalMedDTO.class);
         }else{
             return null;
         }

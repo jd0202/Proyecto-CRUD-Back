@@ -8,5 +8,9 @@ public interface PacienteService {
 
     PacienteDTO obtenerPacientePorCedula(String cedula);
 
-    PacienteEntity obtenerPacientePorId(Long id);
+    PacienteDTO obtenerPacientePorId(Long id);
+
+    PacienteDTO editarPaciente(PacienteDTO pacienteDTO);
+
+    String borrarPaciente(Long id);
 }

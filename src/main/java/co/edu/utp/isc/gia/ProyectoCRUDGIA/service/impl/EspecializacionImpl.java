@@ -45,7 +45,7 @@ public class EspecializacionImpl implements EspecializacionService {
     public String borrarEspecializacion(Long id) {
         if(obtenerEspecializacionPorId(id) != null){
             this.especializacionRepository.deleteById(id);
-            return  "user delete";
+            return  "especializacion delete";
         } else {
             return null;
         }
