@@ -1,10 +1,13 @@
 package co.edu.utp.isc.gia.ProyectoCRUDGIA.service;
 
-import co.edu.utp.isc.gia.ProyectoCRUDGIA.dto.EspecialziacionDTO;
-import co.edu.utp.isc.gia.ProyectoCRUDGIA.entities.EspecializacionEntity;
+import co.edu.utp.isc.gia.ProyectoCRUDGIA.dto.EspecializacionDTO;
 
 public interface EspecializacionService {
-    EspecialziacionDTO crearEspecializacion(EspecialziacionDTO especialziacionDTO);
+    EspecializacionDTO crearEspecializacion(EspecializacionDTO especialziacionDTO);
 
-    EspecializacionEntity obtenerEspecializacionPorId(Long especializacionId);
+    EspecializacionDTO obtenerEspecializacionPorId(Long especializacionId);
+
+    String borrarEspecializacion(Long id);
+
+    EspecializacionDTO editarEspecializacion(EspecializacionDTO especializacionDTO);
 }

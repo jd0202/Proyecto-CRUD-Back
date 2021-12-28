@@ -9,7 +9,7 @@ import java.io.Serializable;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class EspecialziacionDTO implements Serializable {
+public class EspecializacionDTO implements Serializable {
 
     private Long id;
     private String especializacion;

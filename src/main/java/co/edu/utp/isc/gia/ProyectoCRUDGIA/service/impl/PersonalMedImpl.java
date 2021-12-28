@@ -28,8 +28,9 @@ public class PersonalMedImpl implements PersonalMedService {
     @Override
     public PersonalMedDTO crearPersonalMed(PersonalMedDTO personalMedDTO) {
         if(!personalMedDTO.equals(null) && personalMedDTO != null){
-            EspecializacionEntity especializacionEntity =
-                    especializacionService.obtenerEspecializacionPorId(personalMedDTO.getEspecializacionId());
+            EspecializacionEntity especializacionEntity = modelMapper.map(
+                    especializacionService.obtenerEspecializacionPorId(personalMedDTO.getEspecializacionId()
+                    ), EspecializacionEntity.class);
             PersonalMedEntity personalMedEntity = modelMapper.map(personalMedDTO, PersonalMedEntity.class);
             personalMedEntity.setEspecializacionEntity(especializacionEntity);
 

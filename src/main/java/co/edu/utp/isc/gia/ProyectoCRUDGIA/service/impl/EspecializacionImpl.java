@@ -1,6 +1,6 @@
 package co.edu.utp.isc.gia.ProyectoCRUDGIA.service.impl;
 
-import co.edu.utp.isc.gia.ProyectoCRUDGIA.dto.EspecialziacionDTO;
+import co.edu.utp.isc.gia.ProyectoCRUDGIA.dto.EspecializacionDTO;
 import co.edu.utp.isc.gia.ProyectoCRUDGIA.entities.EspecializacionEntity;
 import co.edu.utp.isc.gia.ProyectoCRUDGIA.repository.EspecializacionRepository;
 import co.edu.utp.isc.gia.ProyectoCRUDGIA.service.EspecializacionService;
@@ -20,23 +20,49 @@ public class EspecializacionImpl implements EspecializacionService {
     private ModelMapper modelMapper = new ModelMapper();
 
     @Override
-    public EspecialziacionDTO crearEspecializacion(EspecialziacionDTO especialziacionDTO) {
-        if(!especialziacionDTO.equals(null) && especialziacionDTO != null){
-            EspecializacionEntity especializacionEntity = modelMapper.map(especialziacionDTO,
+    public EspecializacionDTO crearEspecializacion(EspecializacionDTO especializacionDTO) {
+        if(!especializacionDTO.equals(null) && especializacionDTO != null){
+            EspecializacionEntity especializacionEntity = modelMapper.map(especializacionDTO,
                     EspecializacionEntity.class);
             return modelMapper.map(this.especializacionRepository.save(especializacionEntity),
-                    EspecialziacionDTO.class);
+                    EspecializacionDTO.class);
         }else {
             return null;
         }
     }
 
     @Override
-    public EspecializacionEntity obtenerEspecializacionPorId(Long especializacionId) {
-        Optional<EspecializacionEntity> especializacionEntityOptional = especializacionRepository.findById(especializacionId);
+    public EspecializacionDTO obtenerEspecializacionPorId(Long especializacionId) {
+        Optional<EspecializacionEntity> especializacionEntityOptional =
+                especializacionRepository.findById(especializacionId);
         if (especializacionEntityOptional.isPresent()){
-            return especializacionEntityOptional.get();
+            return modelMapper.map(especializacionEntityOptional.get(),EspecializacionDTO.class) ;
         }
         return null;
+    }
+
+    @Override
+    public String borrarEspecializacion(Long id) {
+        if(obtenerEspecializacionPorId(id) != null){
+            this.especializacionRepository.deleteById(id);
+            return  "user delete";
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    public EspecializacionDTO editarEspecializacion(EspecializacionDTO especializacionDTO) {
+        if(!especializacionDTO.equals(null) && especializacionDTO != null){
+            if (obtenerEspecializacionPorId(especializacionDTO.getId()) != null){
+                EspecializacionEntity especializacionEntity =
+                        modelMapper.map(especializacionDTO,EspecializacionEntity.class);
+                return modelMapper.map(this.especializacionRepository.save(especializacionEntity), EspecializacionDTO.class);
+            }else {
+                return null;
+            }
+        } else {
+            return null;
+        }
     }
 }
