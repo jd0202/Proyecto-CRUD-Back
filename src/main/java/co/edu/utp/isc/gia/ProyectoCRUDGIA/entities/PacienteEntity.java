@@ -16,12 +16,21 @@ public class PacienteEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    private String tipoDocumento;
     private String cedula;
     private String nombre;
     private String apellido;
     private String telefono;
-    private String estado;
+    private String email;
+    private String estadoCivil;
+    private String grupoSanguinop;
     private Date fechaNacimiento;
+    private String lugarNacimiento;
+    private String religion;
+    private String etnia;
+    private String tipoPoblacionEspecial;
+    private String ocupacion;
+    private String identidadGenero;
     private String sexo;
 
     @ManyToOne(fetch = FetchType.LAZY)

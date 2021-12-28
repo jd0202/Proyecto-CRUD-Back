@@ -1,8 +1,10 @@
 package co.edu.utp.isc.gia.ProyectoCRUDGIA.service.impl;
 
 
+import co.edu.utp.isc.gia.ProyectoCRUDGIA.dto.PacienteDTO;
 import co.edu.utp.isc.gia.ProyectoCRUDGIA.dto.PersonalMedDTO;
 import co.edu.utp.isc.gia.ProyectoCRUDGIA.entities.EspecializacionEntity;
+import co.edu.utp.isc.gia.ProyectoCRUDGIA.entities.PacienteEntity;
 import co.edu.utp.isc.gia.ProyectoCRUDGIA.entities.PersonalMedEntity;
 import co.edu.utp.isc.gia.ProyectoCRUDGIA.repository.PersonalMedRepository;
 import co.edu.utp.isc.gia.ProyectoCRUDGIA.service.EspecializacionService;
@@ -56,5 +58,29 @@ public class PersonalMedImpl implements PersonalMedService {
             return modelMapper.map(this.personalMedRepository.findByCedula(cedula).get(),PersonalMedDTO.class);
         }
         return null;
+    }
+
+    @Override
+    public PersonalMedDTO editarPersonalMed(PersonalMedDTO personalMedDTO) {
+        if (!personalMedDTO.equals(null) && personalMedDTO != null) {
+            if (obtenerPersonalMedPorId(personalMedDTO.getId()) != null) {
+                PersonalMedEntity personalMedEntity = modelMapper.map(personalMedDTO, PersonalMedEntity.class);
+                return modelMapper.map(this.personalMedRepository.save(personalMedEntity), PersonalMedDTO.class);
+            } else {
+                return null;
+            }
+        }else{
+            return null;
+        }
+    }
+
+    @Override
+    public String borrarPersonalMed(Long id) {
+        if(obtenerPersonalMedPorId(id) != null){
+            personalMedRepository.deleteById(id);
+            return "PersonalMed delete";
+        }else {
+            return null;
+        }
     }
 }

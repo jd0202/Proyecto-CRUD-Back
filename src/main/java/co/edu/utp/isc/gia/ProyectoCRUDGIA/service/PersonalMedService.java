@@ -9,4 +9,8 @@ public interface PersonalMedService {
     PersonalMedDTO obtenerPersonalMedPorId(Long personalMedId);
 
     PersonalMedDTO obtenerPersonalMedPorCedula(String cedula);
+
+    PersonalMedDTO editarPersonalMed(PersonalMedDTO personalMedDTO);
+
+    String borrarPersonalMed(Long id);
 }

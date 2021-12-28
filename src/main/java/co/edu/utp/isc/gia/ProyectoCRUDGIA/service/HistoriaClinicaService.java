@@ -8,4 +8,10 @@ public interface HistoriaClinicaService {
     HistoriaClinicaDTO crearHistoriaClinica(HistoriaClinicaDTO historiaClinicaDTO);
 
     List<HistoriaClinicaDTO> obtenerHistoriaClinicaPorCedula(String cedula);
+
+    HistoriaClinicaDTO obtenerHistoriaClinicaPorId(Long id);
+    
+    HistoriaClinicaDTO editarHistoriaClinica(HistoriaClinicaDTO historiaClinicaDTO);
+
+    String borrarHistoriaClinica(Long id);
 }

@@ -22,4 +22,19 @@ public class PersonalMedController {
     public PersonalMedDTO obtenerPersonalMedPorCedula(@RequestParam String cedula){
         return personalMedService.obtenerPersonalMedPorCedula(cedula);
     }
+
+    @GetMapping("obtenerPersonalMedPorId")
+    public PersonalMedDTO obtenerPersonalMedPorId(@RequestParam Long id){
+        return personalMedService.obtenerPersonalMedPorId(id);
+    }
+
+    @PutMapping("editarPersonalMed")
+    public PersonalMedDTO editarPersonalMed(@RequestBody PersonalMedDTO personalMedDTO){
+        return personalMedService.editarPersonalMed(personalMedDTO);
+    }
+
+    @DeleteMapping("borrarPersonalMed")
+    public String borrarPersonalMed(@RequestParam Long id){
+        return personalMedService.borrarPersonalMed(id);
+    }
 }

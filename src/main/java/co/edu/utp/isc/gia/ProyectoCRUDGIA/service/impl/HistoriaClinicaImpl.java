@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class HistoriaClinicaImpl implements HistoriaClinicaService {
@@ -62,6 +63,41 @@ public class HistoriaClinicaImpl implements HistoriaClinicaService {
             });
             return historiasClinicasDTO;
         }else {
+            return null;
+        }
+    }
+
+    @Override
+    public HistoriaClinicaDTO obtenerHistoriaClinicaPorId(Long id) {
+        Optional<HistoriaClinicaEntity> historiaClinicaEntityOptional = historiaClinicaRepository.findById(id);
+        if(historiaClinicaEntityOptional.isPresent()){
+            return modelMapper.map(historiaClinicaEntityOptional.get(),HistoriaClinicaDTO.class);
+        }else  {
+            return null;
+        }
+    }
+
+    @Override
+    public HistoriaClinicaDTO editarHistoriaClinica(HistoriaClinicaDTO historiaClinicaDTO) {
+        if(!historiaClinicaDTO.equals(null) && historiaClinicaDTO != null){
+            if(obtenerHistoriaClinicaPorId(historiaClinicaDTO.getId()) != null){
+                HistoriaClinicaEntity historiaClinicaEntity =
+                        modelMapper.map(historiaClinicaDTO, HistoriaClinicaEntity.class);
+                return  modelMapper.map(historiaClinicaEntity,HistoriaClinicaDTO.class);
+            }else{
+                return null;
+            }
+        }else {
+            return null;
+        }
+    }
+
+    @Override
+    public String borrarHistoriaClinica(Long id) {
+        if(obtenerHistoriaClinicaPorId(id)!=null){
+            historiaClinicaRepository.deleteById(id);
+            return "HistoriaClinica delete";
+        }else{
             return null;
         }
     }
