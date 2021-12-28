@@ -1,12 +1,12 @@
 package co.edu.utp.isc.gia.ProyectoCRUDGIA.controller;
 
 import co.edu.utp.isc.gia.ProyectoCRUDGIA.dto.PacienteDTO;
+import co.edu.utp.isc.gia.ProyectoCRUDGIA.entities.PacienteEntity;
 import co.edu.utp.isc.gia.ProyectoCRUDGIA.service.PacienteService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("paciente")
@@ -18,5 +18,10 @@ public class PacienteController {
     @PostMapping("crearPaciente")
     public PacienteDTO crearPacienteMed(@RequestBody PacienteDTO pacienteDTO){
         return pacienteService.crearPacienteMed(pacienteDTO);
+    }
+
+    @GetMapping("obtenerPorCedula")
+    public PacienteDTO obtenerPorCedula(@RequestParam String cedula){
+        return pacienteService.obtenerPorCedula(cedula);
     }
 }

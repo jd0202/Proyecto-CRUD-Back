@@ -2,7 +2,6 @@ package co.edu.utp.isc.gia.ProyectoCRUDGIA.entities;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Generated;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
@@ -22,5 +21,8 @@ public class PersonalMedEntity {
     private String apellido;
     private String telefono;
     private Date fechaNacimiento;
-    private Long id_especializacion;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "especializacionId", foreignKey = @ForeignKey(name = "especializacionId"))
+    private EspecializacionEntity especializacionEntity;
 }

@@ -8,6 +8,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class EspecializacionImpl implements EspecializacionService {
 
@@ -15,7 +17,7 @@ public class EspecializacionImpl implements EspecializacionService {
     private EspecializacionRepository especializacionRepository;
 
     @Autowired
-    private ModelMapper modelMapper;
+    private ModelMapper modelMapper = new ModelMapper();
 
     @Override
     public EspecialziacionDTO crearEspecializacion(EspecialziacionDTO especialziacionDTO) {
@@ -27,5 +29,14 @@ public class EspecializacionImpl implements EspecializacionService {
         }else {
             return null;
         }
+    }
+
+    @Override
+    public EspecializacionEntity obtenerEspecializacionPorId(Long especializacionId) {
+        Optional<EspecializacionEntity> especializacionEntityOptional = especializacionRepository.findById(especializacionId);
+        if (especializacionEntityOptional.isPresent()){
+            return especializacionEntityOptional.get();
+        }
+        return null;
     }
 }

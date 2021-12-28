@@ -21,6 +21,10 @@ public class PacienteEntity {
     private String apellido;
     private String telefono;
     private String estado;
-    private Date fechaNaciemiento;
+    private Date fechaNacimiento;
     private String sexo;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "personalMedId", foreignKey = @ForeignKey(name = "personalMedId"))
+    private PersonalMedEntity personalMedEntity;
 }

@@ -39,6 +39,13 @@ public class HistoriaClinicaEntity {
 
     private String tratamientoMedico;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "paciente_Id", foreignKey = @ForeignKey(name = "paciente_Id"))
+    private PacienteEntity pacienteEntity;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "personalMed_Id", foreignKey = @ForeignKey(name = "personalMed_Id"))
+    private PersonalMedEntity personalMedEntity;
 
     /*
     id_paciente

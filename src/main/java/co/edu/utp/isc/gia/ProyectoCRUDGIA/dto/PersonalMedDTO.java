@@ -17,5 +17,5 @@ public class PersonalMedDTO implements Serializable {
     private String apellido;
     private String telefono;
     private Date fechaNacimiento;
-    private Long id_especializacion;
+    private Long especializacionId;
 }
