@@ -2,6 +2,8 @@ package co.edu.utp.isc.gia.ProyectoCRUDGIA.service;
 
 import co.edu.utp.isc.gia.ProyectoCRUDGIA.dto.EspecializacionDTO;
 
+import java.util.List;
+
 public interface EspecializacionService {
     EspecializacionDTO crearEspecializacion(EspecializacionDTO especialziacionDTO);
 
@@ -10,4 +12,6 @@ public interface EspecializacionService {
     String borrarEspecializacion(Long id);
 
     EspecializacionDTO editarEspecializacion(EspecializacionDTO especializacionDTO);
+
+    List<EspecializacionDTO> obtenerEspecializaciones();
 }

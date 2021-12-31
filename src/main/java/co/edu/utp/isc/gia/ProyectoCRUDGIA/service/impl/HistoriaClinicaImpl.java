@@ -2,8 +2,6 @@ package co.edu.utp.isc.gia.ProyectoCRUDGIA.service.impl;
 
 import co.edu.utp.isc.gia.ProyectoCRUDGIA.dto.HistoriaClinicaDTO;
 import co.edu.utp.isc.gia.ProyectoCRUDGIA.dto.PacienteDTO;
-import co.edu.utp.isc.gia.ProyectoCRUDGIA.dto.PersonalMedDTO;
-import co.edu.utp.isc.gia.ProyectoCRUDGIA.entities.EspecializacionEntity;
 import co.edu.utp.isc.gia.ProyectoCRUDGIA.entities.HistoriaClinicaEntity;
 import co.edu.utp.isc.gia.ProyectoCRUDGIA.entities.PacienteEntity;
 import co.edu.utp.isc.gia.ProyectoCRUDGIA.entities.PersonalMedEntity;
@@ -38,9 +36,9 @@ public class HistoriaClinicaImpl implements HistoriaClinicaService {
     public HistoriaClinicaDTO crearHistoriaClinica(HistoriaClinicaDTO historiaClinicaDTO) {
         if(!historiaClinicaDTO.equals(null) && historiaClinicaDTO != null) {
             PacienteEntity pacienteEntity = modelMapper.map(
-                    pacienteService.obtenerPacientePorId(historiaClinicaDTO.getPaciente_Id()),PacienteEntity.class);
+                    pacienteService.obtenerPacientePorId(historiaClinicaDTO.getPaciente()),PacienteEntity.class);
             PersonalMedEntity personalMedEntity =modelMapper.map(
-                    personalMedService.obtenerPersonalMedPorId(historiaClinicaDTO.getPersonalMed_Id()),
+                    personalMedService.obtenerPersonalMedPorId(historiaClinicaDTO.getPersonalMedId()),
                     PersonalMedEntity.class);
             HistoriaClinicaEntity historiaClinicaEntity = modelMapper.map(historiaClinicaDTO, HistoriaClinicaEntity.class);
             historiaClinicaEntity.setPacienteEntity(pacienteEntity);
@@ -55,7 +53,7 @@ public class HistoriaClinicaImpl implements HistoriaClinicaService {
     public List<HistoriaClinicaDTO> obtenerHistoriaClinicaPorCedula(String cedula) {
         PacienteDTO pacienteDTO = pacienteService.obtenerPacientePorCedula(cedula);
         List<HistoriaClinicaEntity> historiasClinicasEntities =
-                historiaClinicaRepository.findByPaciente_Id(pacienteDTO.getId());
+                historiaClinicaRepository.findByCedula(pacienteDTO.getId());
         if (!historiasClinicasEntities.isEmpty()){
             List<HistoriaClinicaDTO> historiasClinicasDTO  = new ArrayList<>();
             historiasClinicasEntities.forEach(historiaClinicaEntity -> {

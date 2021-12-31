@@ -5,6 +5,8 @@ import co.edu.utp.isc.gia.ProyectoCRUDGIA.service.EspecializacionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("especializacion")
 public class EspecializacionController {
@@ -17,7 +19,6 @@ public class EspecializacionController {
         return especializacionService.crearEspecializacion(especialziacionDTO);
     }
 
-    //como borrar cuando existe como llave foranea
     @DeleteMapping("borrarEspecializacion")
     public String borrarEspecializacion(@RequestParam Long id){
         return especializacionService.borrarEspecializacion(id);
@@ -26,6 +27,11 @@ public class EspecializacionController {
     @GetMapping("obtenerEspecializacionPorId")
     public EspecializacionDTO obtenerEspecializacionPorId(@RequestParam Long id){
         return especializacionService.obtenerEspecializacionPorId(id);
+    }
+
+    @GetMapping("obtenerEspecializaciones")
+    public List<EspecializacionDTO> obtenerEspecializaciones(){
+        return  especializacionService.obtenerEspecializaciones();
     }
 
     @PutMapping("editarEspecializacion")

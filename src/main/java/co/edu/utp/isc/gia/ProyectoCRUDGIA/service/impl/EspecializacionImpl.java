@@ -8,6 +8,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -64,5 +66,15 @@ public class EspecializacionImpl implements EspecializacionService {
         } else {
             return null;
         }
+    }
+
+    @Override
+    public List<EspecializacionDTO> obtenerEspecializaciones() {
+        Iterable<EspecializacionEntity> especializacionEntities = this.especializacionRepository.findAll();
+        List<EspecializacionDTO> especializacionDTOS = new ArrayList<>();
+        especializacionEntities.forEach(especializacionEntity -> {
+            especializacionDTOS.add(modelMapper.map(especializacionEntity, EspecializacionDTO.class));
+        });
+        return  especializacionDTOS;
     }
 }
