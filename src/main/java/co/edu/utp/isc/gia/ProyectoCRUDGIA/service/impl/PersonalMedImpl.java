@@ -1,6 +1,7 @@
 package co.edu.utp.isc.gia.ProyectoCRUDGIA.service.impl;
 
 
+import co.edu.utp.isc.gia.ProyectoCRUDGIA.dto.EspecializacionDTO;
 import co.edu.utp.isc.gia.ProyectoCRUDGIA.dto.PacienteDTO;
 import co.edu.utp.isc.gia.ProyectoCRUDGIA.dto.PersonalMedDTO;
 import co.edu.utp.isc.gia.ProyectoCRUDGIA.entities.EspecializacionEntity;
@@ -13,6 +14,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -82,5 +85,15 @@ public class PersonalMedImpl implements PersonalMedService {
         }else {
             return null;
         }
+    }
+
+    @Override
+    public List<PersonalMedDTO> obtenerPersonalMeds() {
+        Iterable<PersonalMedEntity> personalMedEntities = this.personalMedRepository.findAll();
+        List<PersonalMedDTO> personalMedDTOS = new ArrayList<>();
+        personalMedEntities.forEach(personalMedEntity -> {
+            personalMedDTOS.add(modelMapper.map(personalMedEntity, PersonalMedDTO.class));
+        });
+        return  personalMedDTOS;
     }
 }

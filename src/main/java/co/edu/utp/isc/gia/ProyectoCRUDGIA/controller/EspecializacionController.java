@@ -31,7 +31,7 @@ public class EspecializacionController {
 
     @GetMapping("obtenerEspecializaciones")
     public List<EspecializacionDTO> obtenerEspecializaciones(){
-        return  especializacionService.obtenerEspecializaciones();
+        return especializacionService.obtenerEspecializaciones();
     }
 
     @PutMapping("editarEspecializacion")

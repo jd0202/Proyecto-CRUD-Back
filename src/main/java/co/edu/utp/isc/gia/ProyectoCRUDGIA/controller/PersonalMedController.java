@@ -1,10 +1,13 @@
 package co.edu.utp.isc.gia.ProyectoCRUDGIA.controller;
 
 
+import co.edu.utp.isc.gia.ProyectoCRUDGIA.dto.EspecializacionDTO;
 import co.edu.utp.isc.gia.ProyectoCRUDGIA.dto.PersonalMedDTO;
 import co.edu.utp.isc.gia.ProyectoCRUDGIA.service.PersonalMedService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("personalMed")
@@ -26,6 +29,11 @@ public class PersonalMedController {
     @GetMapping("obtenerPersonalMedPorId")
     public PersonalMedDTO obtenerPersonalMedPorId(@RequestParam Long id){
         return personalMedService.obtenerPersonalMedPorId(id);
+    }
+
+    @GetMapping("obtenerPersonalMeds")
+    public List<PersonalMedDTO> obtenerPersonalMeds(){
+        return personalMedService.obtenerPersonalMeds();
     }
 
     @PutMapping("editarPersonalMed")

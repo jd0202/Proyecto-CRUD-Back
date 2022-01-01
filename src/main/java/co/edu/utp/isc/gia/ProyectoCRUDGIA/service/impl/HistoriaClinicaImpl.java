@@ -99,4 +99,4 @@ public class HistoriaClinicaImpl implements HistoriaClinicaService {
             return null;
         }
     }
-}
+}   

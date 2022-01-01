@@ -1,6 +1,7 @@
 package co.edu.utp.isc.gia.ProyectoCRUDGIA.service.impl;
 
 import co.edu.utp.isc.gia.ProyectoCRUDGIA.dto.PacienteDTO;
+import co.edu.utp.isc.gia.ProyectoCRUDGIA.dto.PersonalMedDTO;
 import co.edu.utp.isc.gia.ProyectoCRUDGIA.entities.PacienteEntity;
 import co.edu.utp.isc.gia.ProyectoCRUDGIA.entities.PersonalMedEntity;
 import co.edu.utp.isc.gia.ProyectoCRUDGIA.repository.PacienteRepository;
@@ -10,6 +11,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -78,6 +81,16 @@ public class PacienteServiceImpl implements PacienteService {
             return "paciente delete";
         }
         return null;
+    }
+
+    @Override
+    public List<PacienteDTO> obtenerPacientes() {
+        Iterable<PacienteEntity> pacienteEntities = this.pacienteRepository.findAll();
+        List<PacienteDTO> pacientesDTO = new ArrayList<>();
+        pacienteEntities.forEach(pacienteEntity -> {
+            pacientesDTO.add(modelMapper.map(pacienteEntity, PacienteDTO.class));
+        });
+        return  pacientesDTO;
     }
 
 }
