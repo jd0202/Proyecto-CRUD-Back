@@ -36,14 +36,22 @@ public class HistoriaClinicaImpl implements HistoriaClinicaService {
     public HistoriaClinicaDTO crearHistoriaClinica(HistoriaClinicaDTO historiaClinicaDTO) {
         if(!historiaClinicaDTO.equals(null) && historiaClinicaDTO != null) {
             PacienteEntity pacienteEntity = modelMapper.map(
-                    pacienteService.obtenerPacientePorId(historiaClinicaDTO.getPaciente()),PacienteEntity.class);
+                    pacienteService.obtenerPacientePorId(historiaClinicaDTO.getIdPaciente()),PacienteEntity.class);
             PersonalMedEntity personalMedEntity =modelMapper.map(
-                    personalMedService.obtenerPersonalMedPorId(historiaClinicaDTO.getPersonalMedId()),
+                    personalMedService.obtenerPersonalMedPorId(historiaClinicaDTO.getIdPersonalMed()),
                     PersonalMedEntity.class);
-            HistoriaClinicaEntity historiaClinicaEntity = modelMapper.map(historiaClinicaDTO, HistoriaClinicaEntity.class);
-            historiaClinicaEntity.setPacienteEntity(pacienteEntity);
-            historiaClinicaEntity.setPersonalMedEntity(personalMedEntity);
-            return modelMapper.map(this.historiaClinicaRepository.save(historiaClinicaEntity), HistoriaClinicaDTO.class);
+            if(pacienteEntity != null && personalMedEntity != null){
+                if (historiaClinicaDTO.getCedula().equals(pacienteEntity.getCedula()) ){
+                    HistoriaClinicaEntity historiaClinicaEntity = modelMapper.map(historiaClinicaDTO, HistoriaClinicaEntity.class);
+                    historiaClinicaEntity.setPacienteEntity(pacienteEntity);
+                    historiaClinicaEntity.setPersonalMedEntity(personalMedEntity);
+                    return modelMapper.map(this.historiaClinicaRepository.save(historiaClinicaEntity), HistoriaClinicaDTO.class);
+                }else{
+                    return null;
+                }
+            }else{
+                return null;
+            }
         } else {
             return null;
         }
@@ -79,9 +87,14 @@ public class HistoriaClinicaImpl implements HistoriaClinicaService {
     public HistoriaClinicaDTO editarHistoriaClinica(HistoriaClinicaDTO historiaClinicaDTO) {
         if(!historiaClinicaDTO.equals(null) && historiaClinicaDTO != null){
             if(obtenerHistoriaClinicaPorId(historiaClinicaDTO.getId()) != null){
-                HistoriaClinicaEntity historiaClinicaEntity =
-                        modelMapper.map(historiaClinicaDTO, HistoriaClinicaEntity.class);
-                return  modelMapper.map(historiaClinicaEntity,HistoriaClinicaDTO.class);
+                if (personalMedService.obtenerPersonalMedPorId(historiaClinicaDTO.getIdPersonalMed()) != null
+                        && pacienteService.obtenerPacientePorId(historiaClinicaDTO.getIdPaciente()) != null){
+                    HistoriaClinicaEntity historiaClinicaEntity =
+                            modelMapper.map(historiaClinicaDTO, HistoriaClinicaEntity.class);
+                    return  modelMapper.map(historiaClinicaEntity,HistoriaClinicaDTO.class);
+                }else{
+                    return null;
+                }
             }else{
                 return null;
             }
@@ -98,5 +111,15 @@ public class HistoriaClinicaImpl implements HistoriaClinicaService {
         }else{
             return null;
         }
+    }
+
+    @Override
+    public List<HistoriaClinicaDTO> obtenerHistoriasClinicas() {
+        Iterable<HistoriaClinicaEntity> historiasClinicasEntities = this.historiaClinicaRepository.findAll();
+        List<HistoriaClinicaDTO> historiasClinicasDTO = new ArrayList<>();
+        historiasClinicasEntities.forEach(historiaClinicaEntity -> {
+            historiasClinicasDTO.add(modelMapper.map(historiaClinicaEntity, HistoriaClinicaDTO.class));
+        });
+        return  historiasClinicasDTO;
     }
 }   

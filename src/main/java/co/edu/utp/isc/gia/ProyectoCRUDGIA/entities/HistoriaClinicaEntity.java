@@ -40,11 +40,11 @@ public class HistoriaClinicaEntity {
     private String tratamientoMedico;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "paciente", foreignKey = @ForeignKey(name = "paciente"))
+    @JoinColumn(name = "idPaciente", foreignKey = @ForeignKey(name = "idPaciente"))
     private PacienteEntity pacienteEntity;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "personalMedId", foreignKey = @ForeignKey(name = "personalMedId"))
+    @JoinColumn(name = "idPersonalMed", foreignKey = @ForeignKey(name = "idPersonalMed"))
     private PersonalMedEntity personalMedEntity;
 
 }

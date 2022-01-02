@@ -33,9 +33,13 @@ public class PacienteServiceImpl implements PacienteService {
                     modelMapper.map(
                             personalMedService.obtenerPersonalMedPorId(pacienteDTO.getPersonalMedId()),
                             PersonalMedEntity.class);
-            PacienteEntity pacienteEntity = modelMapper.map(pacienteDTO, PacienteEntity.class);
-            pacienteEntity.setPersonalMedEntity(personalMedEntity);
-            return modelMapper.map(this.pacienteRepository.save(pacienteEntity), PacienteDTO.class);
+            if(personalMedEntity != null){
+                PacienteEntity pacienteEntity = modelMapper.map(pacienteDTO, PacienteEntity.class);
+                pacienteEntity.setPersonalMedEntity(personalMedEntity);
+                return modelMapper.map(this.pacienteRepository.save(pacienteEntity), PacienteDTO.class);
+            }else{
+                return null;
+            }
         } else {
             return null;
         }
@@ -64,8 +68,12 @@ public class PacienteServiceImpl implements PacienteService {
     public PacienteDTO editarPaciente(PacienteDTO pacienteDTO) {
         if (!pacienteDTO.equals(null) && pacienteDTO != null) {
             if (obtenerPacientePorId(pacienteDTO.getId()) != null) {
-                PacienteEntity pacienteEntity = modelMapper.map(pacienteDTO, PacienteEntity.class);
-                return modelMapper.map(this.pacienteRepository.save(pacienteEntity), PacienteDTO.class);
+                if (personalMedService.obtenerPersonalMedPorId(pacienteDTO.getPersonalMedId()) != null){
+                    PacienteEntity pacienteEntity = modelMapper.map(pacienteDTO, PacienteEntity.class);
+                    return modelMapper.map(this.pacienteRepository.save(pacienteEntity), PacienteDTO.class);
+                }else{
+                    return null;
+                }
             } else {
                 return null;
             }

@@ -29,6 +29,11 @@ public class HistoriaClinicaController {
         return historiaClinicaService.obtenerHistoriaClinicaPorId(id);
     }
 
+    @GetMapping("obtenerHistoriasClinicas")
+    public List<HistoriaClinicaDTO> obtenerHistoriasClinicas(){
+        return historiaClinicaService.obtenerHistoriasClinicas();
+    }
+
     @PutMapping("editarHistoriaClinica")
     public HistoriaClinicaDTO editarHistoriaClinica(@RequestBody HistoriaClinicaDTO historiaClinicaDTO){
         return historiaClinicaService.editarHistoriaClinica(historiaClinicaDTO);

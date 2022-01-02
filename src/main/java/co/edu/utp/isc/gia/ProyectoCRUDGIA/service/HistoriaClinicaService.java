@@ -14,4 +14,6 @@ public interface HistoriaClinicaService {
     HistoriaClinicaDTO editarHistoriaClinica(HistoriaClinicaDTO historiaClinicaDTO);
 
     String borrarHistoriaClinica(Long id);
+
+    List<HistoriaClinicaDTO> obtenerHistoriasClinicas();
 }

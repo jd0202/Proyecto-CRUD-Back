@@ -19,7 +19,7 @@ public class PacienteDTO implements Serializable {
     private String telefono;
     private String email;
     private String estadoCivil;
-    private String grupoSanguinop;
+    private String grupoSanguineo;
     private Date fechaNacimiento;
     private String lugarNacimiento;
     private String religion;

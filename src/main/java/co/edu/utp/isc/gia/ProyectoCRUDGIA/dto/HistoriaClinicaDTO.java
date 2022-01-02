@@ -35,6 +35,6 @@ public class HistoriaClinicaDTO implements Serializable {
 
     private String tratamientoMedico;
 
-    private Long personalMedId;
-    private Long paciente;
+    private Long idPersonalMed;
+    private Long idPaciente;
 }

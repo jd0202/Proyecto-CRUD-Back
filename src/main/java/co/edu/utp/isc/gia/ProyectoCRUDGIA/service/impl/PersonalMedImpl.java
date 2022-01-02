@@ -36,10 +36,13 @@ public class PersonalMedImpl implements PersonalMedService {
             EspecializacionEntity especializacionEntity = modelMapper.map(
                     especializacionService.obtenerEspecializacionPorId(personalMedDTO.getEspecializacionId()
                     ), EspecializacionEntity.class);
-            PersonalMedEntity personalMedEntity = modelMapper.map(personalMedDTO, PersonalMedEntity.class);
-            personalMedEntity.setEspecializacionEntity(especializacionEntity);
-
-            return modelMapper.map(this.personalMedRepository.save(personalMedEntity),PersonalMedDTO.class);
+            if(especializacionEntity != null){
+                PersonalMedEntity personalMedEntity = modelMapper.map(personalMedDTO, PersonalMedEntity.class);
+                personalMedEntity.setEspecializacionEntity(especializacionEntity);
+                return modelMapper.map(this.personalMedRepository.save(personalMedEntity),PersonalMedDTO.class);
+            }else{
+                return null;
+            }
         }else {
             return null;
         }
@@ -67,8 +70,12 @@ public class PersonalMedImpl implements PersonalMedService {
     public PersonalMedDTO editarPersonalMed(PersonalMedDTO personalMedDTO) {
         if (!personalMedDTO.equals(null) && personalMedDTO != null) {
             if (obtenerPersonalMedPorId(personalMedDTO.getId()) != null) {
-                PersonalMedEntity personalMedEntity = modelMapper.map(personalMedDTO, PersonalMedEntity.class);
-                return modelMapper.map(this.personalMedRepository.save(personalMedEntity), PersonalMedDTO.class);
+                if(especializacionService.obtenerEspecializacionPorId(personalMedDTO.getEspecializacionId()) != null){
+                    PersonalMedEntity personalMedEntity = modelMapper.map(personalMedDTO, PersonalMedEntity.class);
+                    return modelMapper.map(this.personalMedRepository.save(personalMedEntity), PersonalMedDTO.class);
+                }else{
+                    return null;
+                }
             } else {
                 return null;
             }
