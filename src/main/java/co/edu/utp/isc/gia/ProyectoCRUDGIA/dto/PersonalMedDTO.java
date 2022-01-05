@@ -13,8 +13,10 @@ import java.util.Date;
 public class PersonalMedDTO implements Serializable {
     private Long id;
     private String cedula;
-    private String nombre;
-    private String apellido;
+    private String nombre1;
+    private String nombre2;
+    private String apellido1;
+    private String apellido2;
     private String telefono;
     private Date fechaNacimiento;
     private Long especializacionId;
