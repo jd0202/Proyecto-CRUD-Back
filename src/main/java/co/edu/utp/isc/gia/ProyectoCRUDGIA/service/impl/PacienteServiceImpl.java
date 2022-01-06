@@ -1,7 +1,6 @@
 package co.edu.utp.isc.gia.ProyectoCRUDGIA.service.impl;
 
 import co.edu.utp.isc.gia.ProyectoCRUDGIA.dto.PacienteDTO;
-import co.edu.utp.isc.gia.ProyectoCRUDGIA.dto.PersonalMedDTO;
 import co.edu.utp.isc.gia.ProyectoCRUDGIA.entities.PacienteEntity;
 import co.edu.utp.isc.gia.ProyectoCRUDGIA.entities.PersonalMedEntity;
 import co.edu.utp.isc.gia.ProyectoCRUDGIA.repository.PacienteRepository;
@@ -69,7 +68,12 @@ public class PacienteServiceImpl implements PacienteService {
         if (!pacienteDTO.equals(null) && pacienteDTO != null) {
             if (obtenerPacientePorId(pacienteDTO.getId()) != null) {
                 if (personalMedService.obtenerPersonalMedPorId(pacienteDTO.getPersonalMedId()) != null){
+                    PersonalMedEntity personalMedEntity =
+                            modelMapper.map(
+                                    personalMedService.obtenerPersonalMedPorId(pacienteDTO.getPersonalMedId()),
+                                    PersonalMedEntity.class);
                     PacienteEntity pacienteEntity = modelMapper.map(pacienteDTO, PacienteEntity.class);
+                    pacienteEntity.setPersonalMedEntity(personalMedEntity);
                     return modelMapper.map(this.pacienteRepository.save(pacienteEntity), PacienteDTO.class);
                 }else{
                     return null;

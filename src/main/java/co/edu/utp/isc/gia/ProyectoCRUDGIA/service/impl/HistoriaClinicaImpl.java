@@ -91,6 +91,13 @@ public class HistoriaClinicaImpl implements HistoriaClinicaService {
                         && pacienteService.obtenerPacientePorId(historiaClinicaDTO.getIdPaciente()) != null){
                     HistoriaClinicaEntity historiaClinicaEntity =
                             modelMapper.map(historiaClinicaDTO, HistoriaClinicaEntity.class);
+                    PacienteEntity pacienteEntity = modelMapper.map(
+                            pacienteService.obtenerPacientePorId(historiaClinicaDTO.getIdPaciente()),PacienteEntity.class);
+                    PersonalMedEntity personalMedEntity =modelMapper.map(
+                            personalMedService.obtenerPersonalMedPorId(historiaClinicaDTO.getIdPersonalMed()),
+                            PersonalMedEntity.class);
+                    historiaClinicaEntity.setPacienteEntity(pacienteEntity);
+                    historiaClinicaEntity.setPersonalMedEntity(personalMedEntity);
                     return  modelMapper.map(this.historiaClinicaRepository.save(historiaClinicaEntity),HistoriaClinicaDTO.class);
                 }else{
                     return null;

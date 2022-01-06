@@ -71,7 +71,11 @@ public class PersonalMedImpl implements PersonalMedService {
         if (!personalMedDTO.equals(null) && personalMedDTO != null) {
             if (obtenerPersonalMedPorId(personalMedDTO.getId()) != null) {
                 if(especializacionService.obtenerEspecializacionPorId(personalMedDTO.getEspecializacionId()) != null){
+                    EspecializacionEntity especializacionEntity = modelMapper.map(
+                            especializacionService.obtenerEspecializacionPorId(personalMedDTO.getEspecializacionId()
+                            ), EspecializacionEntity.class);
                     PersonalMedEntity personalMedEntity = modelMapper.map(personalMedDTO, PersonalMedEntity.class);
+                    personalMedEntity.setEspecializacionEntity(especializacionEntity);
                     return modelMapper.map(this.personalMedRepository.save(personalMedEntity), PersonalMedDTO.class);
                 }else{
                     return null;
