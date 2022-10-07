@@ -6,6 +6,7 @@ import co.edu.utp.isc.gia.ProyectoCRUDGIA.entities.PersonalMedEntity;
 import co.edu.utp.isc.gia.ProyectoCRUDGIA.repository.PacienteRepository;
 import co.edu.utp.isc.gia.ProyectoCRUDGIA.service.PacienteService;
 import co.edu.utp.isc.gia.ProyectoCRUDGIA.service.PersonalMedService;
+import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,6 +16,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@AllArgsConstructor
 public class PacienteServiceImpl implements PacienteService {
     @Autowired
     private PersonalMedService personalMedService;

@@ -9,6 +9,7 @@ import co.edu.utp.isc.gia.ProyectoCRUDGIA.repository.HistoriaClinicaRepository;
 import co.edu.utp.isc.gia.ProyectoCRUDGIA.service.HistoriaClinicaService;
 import co.edu.utp.isc.gia.ProyectoCRUDGIA.service.PacienteService;
 import co.edu.utp.isc.gia.ProyectoCRUDGIA.service.PersonalMedService;
+import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@AllArgsConstructor
 public class HistoriaClinicaImpl implements HistoriaClinicaService {
 
     @Autowired
@@ -31,6 +33,7 @@ public class HistoriaClinicaImpl implements HistoriaClinicaService {
 
     @Autowired
     private ModelMapper modelMapper = new ModelMapper();
+
 
     @Override
     public HistoriaClinicaDTO crearHistoriaClinica(HistoriaClinicaDTO historiaClinicaDTO) {

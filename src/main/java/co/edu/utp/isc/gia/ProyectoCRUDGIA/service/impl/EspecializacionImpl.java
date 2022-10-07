@@ -4,6 +4,7 @@ import co.edu.utp.isc.gia.ProyectoCRUDGIA.dto.EspecializacionDTO;
 import co.edu.utp.isc.gia.ProyectoCRUDGIA.entities.EspecializacionEntity;
 import co.edu.utp.isc.gia.ProyectoCRUDGIA.repository.EspecializacionRepository;
 import co.edu.utp.isc.gia.ProyectoCRUDGIA.service.EspecializacionService;
+import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,6 +14,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@AllArgsConstructor
 public class EspecializacionImpl implements EspecializacionService {
 
     @Autowired
